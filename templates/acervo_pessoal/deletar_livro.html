@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deletar Livro</title>
+</head>
+<body>
+    <h1>Deletar Livro</h1>
+    <p>Tem certeza de que deseja deletar "{{ livro.titulo }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirmar</button>
+    </form>
+    <a href="{% url 'acervo_pessoal:listar_livros' %}">Voltar</a>
+</body>
+</html>

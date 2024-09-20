@@ -1,0 +1,34 @@
+<!-- detalhes_livro.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ livro.titulo }}</title>
+</head>
+<body>
+    <h1>{{ livro.titulo }}</h1>
+    <p><strong>Autor:</strong> {{ livro.autor }}</p>
+    <p><strong>Ano de Publicação:</strong> {{ livro.ano_publicacao }}</p>
+    <img src="{{ livro.foto_capa.url }}" alt="Capa do livro" style="width: 200px;">
+
+    <h2>Registrar Empréstimo</h2>
+    <form method="POST" action="{% url 'acervo_pessoal:emprestimo' livro.id %}">
+        {% csrf_token %}
+        <label for="contato_id">Selecionar Contato:</label>
+        <select name="contato_id" id="contato_id" required>
+            <option value="">Selecione um contato</option>
+            {% for contato in contatos %}
+                <option value="{{ contato.id }}">{{ contato.nome }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="data_emprestimo">Data do Empréstimo:</label>
+        <input type="date" name="data_emprestimo" id="data_emprestimo" required>
+
+        <button type="submit">Registrar Empréstimo</button>
+    </form>
+
+    <a href="{% url 'acervo_pessoal:listar_livros' %}">Voltar para a lista de livros</a>
+</body>
+</html>
